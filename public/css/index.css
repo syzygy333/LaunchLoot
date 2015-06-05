@@ -1,0 +1,27 @@
+.centered {
+  text-align: center;
+}
+
+/*#container {
+  background-color: gray;
+}*/
+
+#common {
+  color: #6E6E6E;
+}
+
+#rare {
+  color: #04B404;
+}
+
+#epic {
+  color: #08298A;
+}
+
+#loot {
+  font-weight: bolder;
+}
+
+#buttons {
+  border-radius: 5px;
+}
