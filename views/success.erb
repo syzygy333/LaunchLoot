@@ -1,0 +1,17 @@
+<div class="centered">
+  <div>
+    <h1>Huzzah!</h1>
+    <h3><b>YOUR CHOICE WAS WISE</b></h3>
+  </div>
+  <div>
+      <img src="/img/chest_open.gif" alt="Chest">
+  </div>
+  <div>
+    <% if item_color == "epic" %>
+      <h2>You got an <%= item_color %> item</h2>
+    <% else %>
+      <h2>You got a <%= item_color %> item</h2>
+    <% end %>
+    <h1><b>It's the </b><b id="<%= item_color %>"><%= loot %></b></h1>
+  </div>
+</div>

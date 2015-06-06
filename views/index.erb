@@ -4,16 +4,19 @@
     <h3><b>CHOOSE WISELY</b></h3>
   </div>
   <div>
-      <!-- <img src="/img/chest_open.gif" alt="Chest"> -->
       <img src="/img/chest_closed.gif" alt="Chest">
   </div>
   <br>
-  <div>
-    <a href="#" class="button radius success" id="buttons">Choice 1</a>
-    &nbsp;
-    <a href="#" class="button radius success" id="buttons">Choice 2</a>
-  </div>
-  <div>
-    <h1><b>You got the </b><b id="<%= item_color %>"><%= loot %></b></h1>
+  <div class="row">
+    <div class="small-4 columns">&nbsp;</div>
+    <div class="small-4 columns">
+      <form action=<%=button1 %>>
+        <input class="button radius success left" type="submit" value="Choose!">
+      </form>
+      <form action=<%=button2 %>>
+        <input class="button radius success right" type="submit" value="Choose!">
+      </form>
+    </div>
+    <div class="small-4 columns">&nbsp;</div>
   </div>
 </div>
