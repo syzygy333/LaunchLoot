@@ -40,9 +40,6 @@ get '/failure' do
   erb :failure
 end
 
-# different colors on text to indicate rarity
-# buttons to roll to open chest
-
 # future implementations
 # • remove looted items (words) from CSVs for uniqueness
 # • would be great if user could collect items if signed in
