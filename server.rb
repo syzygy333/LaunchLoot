@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'csv'
 
-# ****** new organization requires server restart to get new item *******
+enable :sessions
 
 def random_url
   SecureRandom.urlsafe_base64(12)
@@ -13,26 +13,10 @@ def roller
 end
 
 url = random_url
-roll = roller
-
-descriptor1 = CSV.read('lootdata/descriptor1.csv')
-common = CSV.read('lootdata/common.csv')
-rare = CSV.read('lootdata/rare.csv')
-epic = CSV.read('lootdata/epic.csv')
-descriptor2 = CSV.read('lootdata/descriptor2.csv')
-
-RARITY_KEY = { 1 => common, 2 => common, 3 => common, 4 => common, 5 => common, 6 => rare, 7 => rare, 8 => rare, 9 => epic, 10 => epic }
-
-COLOR_KEY = { 1 => "common", 2 => "common", 3 => "common", 4 => "common", 5 => "common", 6 => "rare", 7 => "rare", 8 => "rare", 9 => "epic", 10 => "epic" }
-
-item_color = COLOR_KEY[roll]
-item_attribute_1 = descriptor1[0].sample
-item_object = RARITY_KEY[roll][0].sample
-item_attribute_2 = descriptor2[0].sample
 
 get '/' do
-
-  if roll.even?
+  session[:roll] = roller
+  if session[:roll].even?
     button1 = "/failure"
     button2 = "/#{url}"
   else
@@ -44,10 +28,23 @@ get '/' do
 end
 
 get "/#{url}" do
+  descriptor1 = CSV.read('lootdata/descriptor1.csv')
+  common = CSV.read('lootdata/common.csv')
+  rare = CSV.read('lootdata/rare.csv')
+  epic = CSV.read('lootdata/epic.csv')
+  descriptor2 = CSV.read('lootdata/descriptor2.csv')
 
+  RARITY_KEY = { 1 => common, 2 => common, 3 => common, 4 => common, 5 => common, 6 => rare, 7 => rare, 8 => rare, 9 => epic, 10 => epic }
+
+  COLOR_KEY = { 1 => "common", 2 => "common", 3 => "common", 4 => "common", 5 => "common", 6 => "rare", 7 => "rare", 8 => "rare", 9 => "epic", 10 => "epic" }
+
+  item_color = COLOR_KEY[session[:roll]]
+  item_attribute_1 = descriptor1[0].sample.capitalize
+  item_object = RARITY_KEY[session[:roll]][0].sample.capitalize
+  item_attribute_2 = descriptor2[0].sample.capitalize
   loot = "#{item_attribute_1} #{item_object} of #{item_attribute_2}!"
 
-  erb :success, locals: { loot: loot, item_color: item_color }
+  erb :success, locals: { item_color: item_color, loot: loot }
 end
 
 get '/failure' do
